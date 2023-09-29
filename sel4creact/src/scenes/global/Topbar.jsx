@@ -29,12 +29,6 @@ const Topbar = () => {
                 )}
             </IconButton>
             <IconButton>
-                <NotificationsOutlinedIcon />
-            </IconButton>
-            <IconButton>
-                <SettingsOutlinedIcon />
-            </IconButton>
-            <IconButton>
                 <PersonOutlinedIcon />
             </IconButton>
         </Box>

@@ -191,6 +191,10 @@ export const themeSettings = (mode ) => {
                 fontfamily: ["Source Sans 3", "sans-serif"].join(","),
                 fontSize: 14,
             },
+            h7: {
+                fontfamily: ["Heebo", "sans-serif"].join(","),
+                fontSize: 80,
+            },
         }
     };
 };
