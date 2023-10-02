@@ -9,11 +9,13 @@ import Button from '@mui/material/Button';
 import { tokens } from '../../theme';
 import backlogin from './video/backlogin.mp4';
 import Grid from '@mui/material/Grid';
+import { useNavigate } from "react-router-dom";
 
 const LOGIN_URL = '/auth';
 
 const Login = () => {
   const theme = useTheme();
+  const navigate = useNavigate();
   const colors = tokens(theme.palette.mode);
   const [user, setUser] = useState('');
   const [pwd, setPwd] = useState('');
@@ -23,16 +25,25 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        LOGIN_URL,
-        { user, pwd },
+        '/auth/login', // change this to match your login API endpoint
+        { email: user, password: pwd }, // change this to match your login API data format
         {
           headers: { 'Content-Type': 'application/json' },
           withCredentials: true,
         }
       );
-      console.log(JSON.stringify(response?.data));
-      setUser('');
-      setPwd('');
+    console.log(JSON.stringify(response?.data));
+    if (response.status === 200) {
+      // login successful
+      const { access, refresh } = response.data;
+      localStorage.setItem('access', access);
+      localStorage.setItem('refresh', refresh);
+      // redirect to dashboard
+      navigate("/Dashboard");
+      
+    }
+    setUser('');
+    setPwd('');
     } catch (err) {
       if (!err?.response) {
         setErrMsg('No Server Response');
@@ -72,7 +83,7 @@ const Login = () => {
       >
         <Card sx={{ maxWidth: 600 }}>
           <CardContent>
-            <Typography variant="h4" align="center" color={colors.tec[200]}>
+            <Typography variant="h4" align="center" color="#FFFFFF">
               Sign In
             </Typography>
             <form onSubmit={handleSubmit}>

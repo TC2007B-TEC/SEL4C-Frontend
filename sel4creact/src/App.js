@@ -8,6 +8,7 @@ import Login from "./scenes/login";
 import Newadmin from "./scenes/newadmin";
 import Sidebar from "./scenes/global/Sidebar";
 import {Routes, Route, useLocation} from "react-router-dom";
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -24,10 +25,10 @@ function App() {
             {!isLogin && <Topbar />}
             <Routes>
               <Route path="/" element={<Login />}></Route>
-              <Route path="/Dashboard" element={<Dashboard />}></Route>
+              <Route path="/Dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>}></Route>
               <Route path="/usuarios" element={<Usuarios />}></Route>
               {/* <Route path="/admins" element={<Administradores />}></Route> */}
-              <Route path="/newadmin" element={<Newadmin />}></Route>
+              <Route path="/newadmin" element={<ProtectedRoute><Newadmin /></ProtectedRoute>}></Route>
             </Routes>
           </main>
         </div>
