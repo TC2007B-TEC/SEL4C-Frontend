@@ -1,8 +1,6 @@
 import React from 'react';
 import {BsCurrencyDollar} from 'react-icons/bs';
 import { GoPrimitiveDot } from 'react-icons/go';
-import {Stacked, Sparkline} from '../../components'
-import { earningData, SparklineAreaData, ecomPieChartData } from '../../data/dummy'
 import { useTheme, Box, IconButton } from '@mui/material';
 import { tokens } from '../../theme';
 import axios from '../../api/axios';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { pieChartData } from '../../data/dummy';
+import { pieChartData } from '../../data/mockData';
 import { ChartsHeader, Pie as PieChart } from '../../components';
 import { useTheme } from '@mui/material';
 

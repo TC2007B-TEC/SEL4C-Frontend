@@ -28,7 +28,7 @@ function UsuariosDataGrid() {
 
   useEffect(() => {
     // Fetch data from backend using axios
-    axios.get('http://127.0.0.1:8000/usuario/')
+    axios.get('http://20.127.122.6:8000/usuario/')
       .then(res => {
         // Map data to rows
         const rows = res.data.map(usuario => {
