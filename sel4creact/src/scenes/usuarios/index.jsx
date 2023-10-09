@@ -1,81 +1,69 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { DataGrid } from "@mui/x-data-grid";
-import axios from "axios";
+import Checkbox from '@mui/material/Checkbox';
+import axios from 'axios';
 
-const Usuarios = () => {
+const columns = [
+  { field: 'name', headerName: 'Name', width: 150 },
+  { field: 'lname', headerName: 'Last Name', width: 150 },
+  { field: 'activity1', headerName: 'Activity 1', width: 150, renderCell: (params) => (
+    <Checkbox checked={params.value} disabled />
+  )},
+  { field: 'activity2', headerName: 'Activity 2', width: 150, renderCell: (params) => (
+    <Checkbox checked={params.value} disabled />
+  )},
+  { field: 'activity3', headerName: 'Activity 3', width: 150, renderCell: (params) => (
+    <Checkbox checked={params.value} disabled />
+  )},
+  { field: 'activity4', headerName: 'Activity 4', width: 150, renderCell: (params) => (
+    <Checkbox checked={params.value} disabled />
+  )},
+  { field: 'finalActivity', headerName: 'Final Activity', width: 150, renderCell: (params) => (
+    <Checkbox checked={params.value} disabled />
+  )}
+];
+
+function UsuariosDataGrid() {
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
-    // Fetch data from both endpoints and combine them into one array
-    axios
-      .all([
-        axios.get("http://127.0.0.1:8000/usuario/"),
-        axios.get("http://127.0.0.1:8000/tests/"),
-      ])
-      .then(
-        axios.spread((res1, res2) => {
-          // res1.data is an array of usuarios
-          // res2.data is an array of tests
-          // Map each usuario to a test with the same author
-          const data = res1.data.map((usuario) => {
-            const test = res2.data.find(
-              (test) => test.author === usuario.email
-            );
-            // Return an object with the fields you want to display
-            return {
-              id: usuario.email,
-              name: usuario.name,
-              autocontrol: test.autocontrol,
-              liderazgo: test.liderazgo,
-              conciencia: test.conciencia,
-              innovacion: test.innovacion,
-              sistemico: test.sistemico,
-              cientifico: test.cientifico,
-            };
-          });
-          // Set the state with the fetched data
-          setRows(data);
-        })
-      )
-      .catch((error) => {
-        // Handle errors
-        console.log(error);
+    // Fetch data from backend using axios
+    axios.get('http://127.0.0.1:8000/usuario/')
+      .then(res => {
+        // Map data to rows
+        const rows = res.data.map(usuario => {
+          return {
+            id: usuario.email,
+            name: usuario.name,
+            lname: usuario.lname,
+            activity1: usuario.activities?.find(activity => activity.name === 'Activity 1')?.completed_space ?? false,
+            activity2: usuario.activities?.find(activity => activity.name === 'Activity 2')?.completed_space ?? false,
+            activity3: usuario.activities?.find(activity => activity.name === 'Activity 3')?.completed_space ?? false,
+            activity4: usuario.activities?.find(activity => activity.name === 'Activity 4')?.completed_space ?? false,
+            finalActivity: usuario.activities?.find(activity => activity.name === 'Final Activity')?.completed_space ?? false
+          };
+        });
+        
+        // Set rows state
+        setRows(rows);
+      })
+      .catch(err => {
+        // handle error
+        console.error(err);
       });
   }, []);
 
-  // Define the columns for the data grid
-  const columns = [
-    { field: "name", headerName: "Name", width: 150 },
-    { field: "autocontrol", headerName: "Autocontrol", width: 120, sortable: true },
-    { field: "liderazgo", headerName: "Liderazgo", width: 120, sortable: true },
-    { field: "conciencia", headerName: "Conciencia", width: 120, sortable: true },
-    { field: "innovacion", headerName: "Innovacion", width: 120, sortable: true },
-    { field: "sistemico", headerName: "Sistemico", width: 120, sortable: true },
-    { field: "cientifico", headerName: "Cientifico", width: 120, sortable: true },
-  ];
-
-  // Define the sort model for the data grid
-  const [sortModel, setSortModel] = useState([
-    {
-      field: "autocontrol",
-      sort: "asc",
-    },
-  ]);
-
   return (
-    <div>
+    <div style={{ height: 500, width: '100%' }}>
       <DataGrid
-        columns={columns}
         rows={rows}
-        height={300}
-        width="100%"
-        pagination
-        sortingMode="server"
-        sortModel={sortModel}
-        onSortModelChange={(model) => setSortModel(model)}
+        columns={columns}
+        pageSize={10}
+        checkboxSelection
+        disableSelectionOnClick
       />
     </div>
   );
-};
+}
 
-export default Usuarios;
+export default UsuariosDataGrid;

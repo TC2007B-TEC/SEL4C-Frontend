@@ -25,7 +25,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        '/auth/login', // change this to match your login API endpoint
+        'http://127.0.0.1:8000/adminlog/', // change this to match your login API endpoint
         { email: user, password: pwd }, // change this to match your login API data format
         {
           headers: { 'Content-Type': 'application/json' },
