@@ -44,7 +44,6 @@ const Sidebar = () => {
             "& .pro-menu-item.active": {
                 color: `${colors.tec[100]} !important`
             }
-
         }}
     >
         <ProSidebar collapsed={isCollapsed}>
@@ -94,7 +93,7 @@ const Sidebar = () => {
                         to="/admins"
                         icon={<PersonOutlinedIcon />}
                         selected={selected}
-                        setSelected={setSelected}                    
+                        setSelected={setSelected}                   
                     />
                     <Item 
                         title="Nuevo Administrador"

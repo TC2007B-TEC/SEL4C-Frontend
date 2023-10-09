@@ -4,6 +4,9 @@ import './index.css';
 import App from './App';
 import {BrowserRouter} from 'react-router-dom';
 import { AuthProvider } from './context/AuthProvider';
+import { registerLicense } from '@syncfusion/ej2-base';
+
+registerLicense('Ngo9BigBOggjHTQxAR8/V1NHaF5cXmVCf1JpQnxbf1xzZFZMYVpbQH5PIiBoS35RdURjWXdfdXVTQmlfUkZz');
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
