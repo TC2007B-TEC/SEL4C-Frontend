@@ -24,20 +24,11 @@ const Doughnut = ({ id, data, legendVisiblity, height }) => {
           yName="y"
           innerRadius="40%"
           startAngle={0}
-          endAngle={288}
+          endAngle={360}
           radius="70%"
           explode
           explodeOffset="10%"
           explodeIndex={2}
-          dataLabel={{
-            visible: true,
-            name: 'text',
-            position: 'Inside',
-            font: {
-              fontWeight: '600',
-              color: '#fff',
-            },
-          }}
         />
       </AccumulationSeriesCollectionDirective>
     </AccumulationChartComponent>

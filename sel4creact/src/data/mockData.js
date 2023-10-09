@@ -28,22 +28,18 @@ export const Actividades = [
 
 export const stackedChartData = [
   [
-    { x: 'Jan', y: 111.1 },
-    { x: 'Feb', y: 127.3 },
-    { x: 'Mar', y: 143.4 },
-    { x: 'Apr', y: 159.9 },
-    { x: 'May', y: 159.9 },
-    { x: 'Jun', y: 159.9 },
-    { x: 'July', y: 159.9 },
+    { x: 'Actividad 1', y: 200 },
+    { x: 'Actividad 2', y: 150 },
+    { x: 'Actividad 3', y: 125 },
+    { x: 'Actividad 4', y: 75 },
+    { x: 'Actividad 5', y: 30 },
   ],
   [
-    { x: 'Jan', y: 111.1 },
-    { x: 'Feb', y: 127.3 },
-    { x: 'Mar', y: 143.4 },
-    { x: 'Apr', y: 159.9 },
-    { x: 'May', y: 159.9 },
-    { x: 'Jun', y: 159.9 },
-    { x: 'July', y: 159.9 },
+    { x: 'Actividad 1', y: 120 },
+    { x: 'Actividad 2', y: 170 },
+    { x: 'Actividad 3', y: 195 },
+    { x: 'Actividad 4', y: 245 },
+    { x: 'Actividad 5', y: 290 },
   ],
 ];
 
@@ -52,7 +48,7 @@ export const stackedCustomSeries = [
   { dataSource: stackedChartData[0],
     xName: 'x',
     yName: 'y',
-    name: 'Budget',
+    name: 'Actividades',
     type: 'StackingColumn',
     background: 'blue',
 
@@ -61,9 +57,9 @@ export const stackedCustomSeries = [
   { dataSource: stackedChartData[1],
     xName: 'x',
     yName: 'y',
-    name: 'Expense',
+    name: 'Usuarios',
     type: 'StackingColumn',
-    background: 'red',
+    background: 'black',
 
   },
 ];

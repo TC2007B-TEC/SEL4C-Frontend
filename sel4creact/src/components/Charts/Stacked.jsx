@@ -15,7 +15,7 @@ const Stacked = ({ width, height }) => {
         width={width}
         height={height}
         chartArea={{ border: { width: 0 } }}
-        tooltip={{ enable: true }}
+        tooltip={{ enable: false }}
         background="transparent"
         legendSettings={{ background: 'white' }}
     >
