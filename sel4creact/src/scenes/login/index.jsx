@@ -11,39 +11,41 @@ import backlogin from './video/backlogin.mp4';
 import Grid from '@mui/material/Grid';
 import { useNavigate } from "react-router-dom";
 
-const LOGIN_URL = '/auth';
+const LOGIN_URL = 'http://127.0.0.1:8000/adminlog/'; // change this to match your Django login URL
 
 const Login = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const colors = tokens(theme.palette.mode);
-  const [user, setUser] = useState('');
-  const [pwd, setPwd] = useState('');
+  const [email, setEmail] = useState(''); // change this to email instead of email
+  const [password, setPassword] = useState(''); // change this to password instead of pwd
   const [errMsg, setErrMsg] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        'http://127.0.0.1:8000/adminlog/', // change this to match your login API endpoint
-        { email: user, password: pwd }, // change this to match your login API data format
+        LOGIN_URL, // use the constant defined above
+        { email: email, password: password }, // change this to match your Django login data format
         {
           headers: { 'Content-Type': 'application/json' },
-          withCredentials: true,
+          withCredentials: false, // change this to false or allow credentials in Django
         }
       );
     console.log(JSON.stringify(response?.data));
     if (response.status === 200) {
       // login successful
-      const { access, refresh } = response.data;
-      localStorage.setItem('access', access);
-      localStorage.setItem('refresh', refresh);
+      const { email, name, lname, role } = response.data; // change this to match your Django login response data format
+      localStorage.setItem('email', email); // store the email information in local storage
+      localStorage.setItem('name', name);
+      localStorage.setItem('lname', lname);
+      localStorage.setItem('role', role);
       // redirect to dashboard
       navigate("/Dashboard");
       
     }
-    setUser('');
-    setPwd('');
+    setEmail(''); // clear the input fields
+    setPassword('');
     } catch (err) {
       if (!err?.response) {
         setErrMsg('No Server Response');
@@ -56,6 +58,7 @@ const Login = () => {
       }
     }
   };
+
 
  
 
@@ -88,11 +91,11 @@ const Login = () => {
             </Typography>
             <form onSubmit={handleSubmit}>
               <TextField
-                id="username"
-                label="Username"
+                id="email"
+                label="email" // change this to email instead of emailname
                 type="text"
-                value={user}
-                onChange={(e) => setUser(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
                 fullWidth
                 margin="normal"
@@ -102,8 +105,8 @@ const Login = () => {
                 id="password"
                 label="Password"
                 type="password"
-                value={pwd}
-                onChange={(e) => setPwd(e.target.value)}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
                 fullWidth
                 margin="normal"
@@ -134,4 +137,5 @@ const Login = () => {
 };
 
 export default Login;
+
 

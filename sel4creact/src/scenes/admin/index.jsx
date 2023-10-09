@@ -1,58 +1,46 @@
-import React, { useState, useEffect } from "react";
-import { DataGrid } from "@mui/x-data-grid";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import { DataGrid } from '@mui/x-data-grid'; // import the DataGrid component
+import axios from 'axios'; // import axios for making HTTP requests
 
+// define the columns for the data grid
+const columns = [
+  { field: 'name', headerName: 'Name', width: 150 },
+  { field: 'lname', headerName: 'Last Name', width: 150 },
+  { field: 'role', headerName: 'Role', width: 150 },
+];
+
+// define the component that renders the data grid
 const Admins = () => {
-  const [rows, setRows] = useState([]);
+  const [rows, setRows] = useState([]); // use state to store the rows of data
 
+  // use effect to fetch the data from the backend
   useEffect(() => {
-    // Fetch data from both endpoints and combine them into one array
+    // make a get request to http://127.0.0.1:8000/profe/
     axios
-      .all([
-        axios.get("http://127.0.0.1:8000/admin/"),
-      ])
-      .then(
-        axios.spread((res1) => {
-          // res1.data is an array of usuarios
-          // res2.data is an array of tests
-          // Map each usuario to a test with the same author
-          const data = res1.data.map((admin) => {
-            // Return an object with the fields you want to display
-            return {
-              name: admin.name,
-              email: admin.email,
-            };
-          });
-          // Set the state with the fetched data
-          setRows(data);
-        })
-      )
+      .get('http://127.0.0.1:8000/profe/', {
+        headers: { 'Content-Type': 'application/json' },
+      })
+      .then((response) => {
+        // if the response is successful, set the rows state with the data
+        setRows(response.data);
+      })
       .catch((error) => {
-        // Handle errors
-        console.log(error);
+        // if there is an error, log it to the console
+        console.error(error);
       });
-  }, []);
-
-  // Define the columns for the data grid
-  const columns = [
-    { field: "name", headerName: "Name", width: 150 },
-    { field: "email", headerName: "Email", width: 150 },
-  ];
-
-
+  }, []); // run only once when the component mounts
 
   return (
-    <div>
+    <div style={{ height: 300, width: '100%' }}>
       <DataGrid
-        columns={columns}
+        getRowId={(row) => row.email} // use the email field as the id
         rows={rows}
-        height={300}
-        width="100%"
-        pagination
-        sortingMode="server"
-      />
+        columns={columns}
+      /> 
+      
     </div>
   );
 };
 
-export default Admins;
+export default Admins; // export the component
+
