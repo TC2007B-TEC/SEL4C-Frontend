@@ -54,7 +54,7 @@ function UsuariosDataGrid() {
   }, []);
 
   return (
-    <div style={{ height: 500, width: '100%' }}>
+    <div className=' m-9' style={{ height: 500, width: '95%'}}>
       <DataGrid
         rows={rows}
         columns={columns}

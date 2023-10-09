@@ -3,7 +3,7 @@ import { ChartComponent, SeriesCollectionDirective, SeriesDirective, Inject, Rad
 import { useTheme } from '@mui/material';
 
 
-const Radar = ({ id, data }) => {
+const Radar = ({ id, data, legendVisiblity }) => {
     const primaryxAxis = { valueType: 'string', title: 'Month' };
     const theme = useTheme()
     const colors =  `${theme.palette.mode==='dark' ? theme.palette.grey[900]: theme.palette.grey[300]}`
@@ -13,7 +13,8 @@ const Radar = ({ id, data }) => {
     width='100%' // Set an appropriate width
     height='100%' // Set an appropriate height
     background={colors}
-    primaryxAxis={primaryxAxis}>
+    primaryxAxis={primaryxAxis}
+    legendSettings={{ visible: legendVisiblity, background: colors, position:'Bottom' }}>
         <Inject services={[PolarSeries, RadarSeries,LineSeries, AreaSeries, StackingAreaSeries]}/>
         <SeriesCollectionDirective>
             <SeriesDirective 

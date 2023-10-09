@@ -10,10 +10,9 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import { pieChartData, Actividades } from '../../data/mockData';
 import {data} from '../../data/mockData'
-import { ChartsHeader, Pie, Radar} from '../../components';
+import { ChartsHeader, Pie, Radar, Stacked} from '../../components';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
-
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -36,7 +35,7 @@ const Dashboard = () => {
           }>
           <p className='font-bold mb-3 text-center'>Administradores</p>
           <p className='text-center mt-5 mb-5 text-5xl '>127</p>
-          <IconButton  onClick={() => navigate('/admin')}>
+          <IconButton  onClick={() => navigate('/admins')}>
             <AccountCircleIcon />
           </IconButton>
         </div>
@@ -47,6 +46,7 @@ const Dashboard = () => {
         }>
           <ChartsHeader title={"Actividades realizadas"}/>
           <Pie id="Pie" data={Actividades} legendVisiblity height="full"/>
+          <Stacked height="full" width="full"/>
         </div>
       </div>
     </div>   
