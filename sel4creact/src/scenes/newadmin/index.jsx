@@ -1,108 +1,120 @@
-import { Box, Button, TextField } from "@mui/material";
-import {Formik} from "formik";
-import * as yup from "yup";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import Header from "../../components/Header";
+import React, { useState } from "react";
+import axios from "axios";
+import { Box, Button, TextField, FormControl, InputLabel, Select, MenuItem } from "@mui/material"; // Import Mui components
+import { Formik } from "formik"; // Import Formik for form validation
+import * as yup from "yup"; // Import yup for schema validation
 
-const initialValues = {
-    nombre: "",
-    apellido: "",
-    email: "",
-    password: "",
-};
+function AddAdmin() {
+  // Define the validation schema for the input fields
+  const validationSchema = yup.object({
+    email: yup.string().email().required(),
+    password: yup.string().min(8).required(),
+    name: yup.string().required(),
+    lname: yup.string().required(),
+    role: yup.string().oneOf(["admin", "superadmin"]).required(),
+  });
 
-const userSchema = yup.object().shape({
-    nombre: yup.string().required("Obligatorio"),
-    apellido: yup.string().required("Obligatorio"),
-    email: yup.string().email("email no valido").required("Obligatorio"),
-    password: yup.string().required("Obligatorio"),
-})
-
-const Newadmin = () => {
-    const isNonMobile = useMediaQuery("(min-width:600px");
-    const handleFormSubmit = (values) => {
-        console.log(values);
+  // Define the handler function for the submit button
+  const handleSubmit = (values) => {
+    // Create an object with the input data
+    const adminData = {
+      email: values.email,
+      password: values.password,
+      name: values.name,
+      lname: values.lname,
+      role: values.role,
     };
 
-    return (
-        <Box m="20px">
-            <Header title ="Crear Admin" subtitle="Crear un administrador nuevo" />
-            <Formik
-                onSubmit={handleFormSubmit}
-                initialValues={initialValues}
-                validationSchema={userSchema}
-            >
-                {({values, errors, touched, handleBlur, handleChange, handleSubmit})=>(
-                    <form onSubmit={handleSubmit}>
-                        <Box 
-                        display="grid" 
-                        gap="30px" 
-                        gridTemplateColumns="repeat(4, minmax(0,1fr))"
-                        sx={{"& > div":{gridColumn: isNonMobile ? undefined : "span 4"}}}
-                        >
-                            <TextField 
-                                fullWidth
-                                variant="filled"
-                                type="text"
-                                label="Nombre"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={values.nombre}
-                                name="nombre"
-                                error={!!touched.nombre && !!errors.nombre}
-                                helperText={touched.nombre && errors.nombre}
-                                sx={{gridColumn: "span 2"}}
-                            />
-                            <TextField 
-                                fullWidth
-                                variant="filled"
-                                type="text"
-                                label="Apellido"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={values.apellido}
-                                name="apellido"
-                                error={!!touched.apellido && !!errors.apellido}
-                                helperText={touched.apellido && errors.apellido}
-                                sx={{gridColumn: "span 2"}}
-                            />
-                            <TextField 
-                                fullWidth
-                                variant="filled"
-                                type="text"
-                                label="Email"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={values.email}
-                                name="email"
-                                error={!!touched.email && !!errors.email}
-                                helperText={touched.email && errors.email}
-                                sx={{gridColumn: "span 4"}}
-                            />
-                            <TextField 
-                                fullWidth
-                                variant="filled"
-                                type="text"
-                                label="Contraseña"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={values.password}
-                                name="password"
-                                error={!!touched.password && !!errors.password}
-                                helperText={touched.password && errors.password}
-                                sx={{gridColumn: "span 4"}}
-                            />
-                        </Box>
-                        <Box display="flex" justifyContent="end" mt="20px">
-                            <Button type="submit" color="secondary" variant="contained">
-                                Crear Nuevo Admin
-                            </Button>
-                        </Box>
-                    </form>
-                )}
-            </Formik>
-        </Box>
-    )
+    // Make the POST request to the backend with the admin data
+    axios.post('http://localhost:8000/profe/', adminData)
+      .then((response) => {
+        // Handle the response from the backend
+        console.log(response.data);
+        alert('New admin added successfully!');
+      })
+      .catch((error) => {
+        // Handle the error from the backend
+        console.log(error);
+        alert('Something went wrong!');
+      });
+      
+  };
+
+  return (
+    <div className="AddAdmin">
+      <h1>Add a new admin</h1>
+      <Formik
+        initialValues={{
+          email: "",
+          password: "",
+          name: "",
+          lname: "",
+          role: "admin",
+        }}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {({ handleSubmit, handleChange, values, touched, errors }) => (
+          <form onSubmit={handleSubmit}>
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              <TextField
+                label="Email"
+                name="email"
+                value={values.email}
+                onChange={handleChange}
+                error={touched.email && Boolean(errors.email)}
+                helperText={touched.email && errors.email}
+              />
+              <TextField
+                label="Password"
+                name="password"
+                type="password"
+                value={values.password}
+                onChange={handleChange}
+                error={touched.password && Boolean(errors.password)}
+                helperText={touched.password && errors.password}
+              />
+              <TextField
+                label="Name"
+                name="name"
+                value={values.name}
+                onChange={handleChange}
+                error={touched.name && Boolean(errors.name)}
+                helperText={touched.name && errors.name}
+              />
+              <TextField
+                label="Last name"
+                name="lname"
+                value={values.lname}
+                onChange={handleChange}
+                error={touched.lname && Boolean(errors.lname)}
+                helperText={touched.lname && errors.lname}
+              />
+              {/* Use the basic select of Mui material for the role field */}
+              <FormControl fullWidth>
+               <InputLabel id="role-label">Role</InputLabel>
+               <Select
+                 labelId="role-label"
+                 id="role-select"
+                 name="role"
+                 value={values.role}
+                 onChange={handleChange}
+                 label="Role"
+                 error={touched.role && Boolean(errors.role)}
+               >
+                 <MenuItem value="admin">Admin</MenuItem>
+                 <MenuItem value="superadmin">Superadmin</MenuItem>
+               </Select>
+             </FormControl>
+              <Button type="submit" variant="contained">
+                Add
+              </Button>
+            </Box>
+          </form>
+        )}
+      </Formik>
+    </div>
+  );
 }
 
-export default Newadmin;
+export default AddAdmin;

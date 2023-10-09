@@ -3,9 +3,10 @@ import { CssBaseline,ThemeProvider } from "@mui/material";
 import Topbar from "./scenes/global/Topbar";
 import Usuarios from "./scenes/usuarios";
 import Login from "./scenes/login";
-// import Administradores from "./scenes/admins";
-import Newadmin from "./scenes/newadmin";
+import Admins from "./scenes/admin";
+import AddAdmin from "./scenes/newadmin";
 import Sidebar from "./scenes/global/Sidebar";
+import UserActivity from "./scenes/useractivity/UserActivity";
 import {Routes, Route, useLocation} from "react-router-dom";
 import ProtectedRoute from './components/ProtectedRoute';
 import Dashboard from './scenes/dashboard';
@@ -29,10 +30,12 @@ function App() {
               <Route path="/" element={<Login />}></Route>
               <Route path="/Dashboard" element={<Dashboard />}></Route>
               <Route path="/usuarios" element={<Usuarios />}></Route>
-              {/* <Route path="/admins" element={<Administradores />}></Route> */}
-              <Route path="/newadmin" element={<ProtectedRoute><Newadmin /></ProtectedRoute>}></Route>
+              <Route path="/usuarioactivity" element={<UserActivity />}></Route>
+              <Route path="/admins" element={<Admins />}></Route>
+              <Route path="/newadmin" element={<AddAdmin />}></Route>
               <Route path="/pie" element={<Pie/>} />
               <Route path="/radar" element={<Radar/>} />
+
             </Routes>
           </main>
         </div>
