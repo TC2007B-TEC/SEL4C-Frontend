@@ -11,7 +11,7 @@ import {Routes, Route, useLocation} from "react-router-dom";
 import ProtectedRoute from './components/ProtectedRoute';
 import Dashboard from './scenes/dashboard';
 import Pie from './scenes/Charts/Pie';
-import Radar from './scenes/Charts/Radar'
+import Apex from './scenes/Charts/Radar'
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -23,7 +23,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          {!isLogin && <Sidebar />}
+          {!isLogin && <Sidebar/>}
           <main className="content">
             {!isLogin && <Topbar />}
             <Routes>
@@ -34,8 +34,7 @@ function App() {
               <Route path="/admins" element={<Admins />}></Route>
               <Route path="/newadmin" element={<AddAdmin />}></Route>
               <Route path="/pie" element={<Pie/>} />
-              <Route path="/radar" element={<Radar/>} />
-
+              <Route path="/radar" element={<Apex/>} />
             </Routes>
           </main>
         </div>
