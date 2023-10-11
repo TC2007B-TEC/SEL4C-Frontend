@@ -144,7 +144,5 @@ export async function Datos (email) {
         {label: "PCr", name: "Pensamiento crítico", x: g, y: gf},
         {label: "PI", name: "Pensamiento innovador", x: h, y: hf},
     ]
-    
-    console.log(dataSet)
     return dataSet
 };

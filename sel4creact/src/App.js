@@ -17,7 +17,7 @@ function App() {
   const [theme, colorMode] = useMode();
   const location = useLocation(); // get the current location
   const isLogin = location.pathname === "/"; 
-  const individual = location.pathname === "/radar"; 
+  const individual = location.pathname.startsWith("/radar/"); 
   
   return (
     <ColorModeContext.Provider value={colorMode}>
@@ -34,7 +34,7 @@ function App() {
               <Route path="/admins" element={<Admins />}></Route>
               <Route path="/newadmin" element={<AddAdmin />}></Route>
               <Route path="/pie" element={<Pie/>} />
-              <Route path="/radar" element={<Apex/>} />
+              <Route path="/radar/:user" element={<Apex/>} />
             </Routes>
           </main>
         </div>

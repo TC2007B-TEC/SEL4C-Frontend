@@ -7,7 +7,7 @@ import{ useState, useEffect } from 'react';
 
 const Apex = (usuario) => {  
     const [data, setData] = useState([]);
-    
+
     useEffect(() => {
         Datos(usuario).then(data => {
             setData(data);
@@ -24,7 +24,7 @@ const Apex = (usuario) => {
         > 
             <PolarGrid stroke="grey"/> 
             <PolarAngleAxis  dataKey="label"/> 
-            <PolarRadiusAxis angle={67.5} stroke='grey' /> 
+            <PolarRadiusAxis angle={67.5} stroke='grey' min={0} max={100} tickCount={6}/> 
             <Radar 
                 name='Diagnostico Inicial' 
                 dataKey="x"              
