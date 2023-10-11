@@ -17,7 +17,7 @@ const Admins = () => {
   useEffect(() => {
     // make a get request to http://127.0.0.1:8000/profe/
     axios
-      .get('http://127.0.0.1:8000/profe/', {
+      .get('http://20.127.122.6:8000/profe/', {
         headers: { 'Content-Type': 'application/json' },
       })
       .then((response) => {

@@ -11,7 +11,7 @@ import backlogin from './video/backlogin.mp4';
 import Grid from '@mui/material/Grid';
 import { useNavigate } from "react-router-dom";
 
-const LOGIN_URL = 'http://127.0.0.1:8000/adminlog/'; // change this to match your Django login URL
+const LOGIN_URL = 'http://20.127.122.6:8000/adminlog/'; // change this to match your Django login URL
 
 const Login = () => {
   const theme = useTheme();

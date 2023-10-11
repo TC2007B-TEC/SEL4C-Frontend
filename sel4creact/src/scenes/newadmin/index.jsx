@@ -26,7 +26,7 @@ function AddAdmin() {
     };
 
     // Make the POST request to the backend with the admin data
-    axios.post('http://localhost:8000/profe/', adminData)
+    axios.post('http://20.127.122.6:8000/profe/', adminData)
       .then((response) => {
         // Handle the response from the backend
         console.log(response.data);
