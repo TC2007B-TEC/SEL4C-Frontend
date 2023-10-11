@@ -17,15 +17,16 @@ function App() {
   const [theme, colorMode] = useMode();
   const location = useLocation(); // get the current location
   const isLogin = location.pathname === "/"; 
+  const individual = location.pathname === "/radar"; 
   
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          {!isLogin && <Sidebar/>}
+          {!isLogin && !individual && <Sidebar/>}
           <main className="content">
-            {!isLogin && <Topbar />}
+            {!isLogin && !individual && <Topbar />}
             <Routes>
               <Route path="/" element={<Login />}></Route>
               <Route path="/Dashboard" element={<Dashboard />}></Route>
