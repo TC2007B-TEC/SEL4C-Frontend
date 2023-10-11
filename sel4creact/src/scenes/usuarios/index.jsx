@@ -203,8 +203,7 @@ function UserScreen() {
   }
   // Retornamos el JSX del componente
   return (
-    <div style={{ height: 400, width: "100%" }}>
-      {/* Mostramos el datagrid con los usuarios */}
+    <div style={{ height: 500, width: '100%' }}>
       <DataGrid
         rows={users}
         columns={columns}

@@ -27,8 +27,9 @@ const Sidebar = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [selected, setSelected] = useState("Dashboard");
 
-    return <Box 
+    return <Box
         sx={{
+            height:"115%",       
             "& .pro-sidebar-inner":{
                 background: `${colors.tec[400]} !important`
             },
@@ -47,11 +48,11 @@ const Sidebar = () => {
         }}
     >
         <ProSidebar collapsed={isCollapsed}>
-            <Menu iconShape="square">
+            <Menu iconShape="transparent">
                 <MenuItem
                     onClick={() => setIsCollapsed(!isCollapsed)}
                     icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
-                    stylr={{
+                    style={{
                         margin: "10px 0 20px 0",
                         color: colors.tec[500],
                     }}                
@@ -62,6 +63,7 @@ const Sidebar = () => {
                             justifyContent="space-between"
                             alignItems="center"
                             ml="15px"
+                            height="full"
                         >
                             <Typography variant="h3" color={colors.grey[100]}>
                                 SEL4C
