@@ -23,22 +23,13 @@ function UserScreen() {
   const colors = tokens(theme.palette.mode);
   const [users, setUsers] = useState([]); // Un array para guardar los usuarios
   const [userActivities, setUserActivities] = useState([]); // Un array para guardar las actividades de un usuario
-  const [userTests, setUserTests] = useState([]);
- // Un array para guardar los tests de un usuario
   const [userDetails, setUserDetails] = useState(null); // Un objeto para guardar la información de un usuario
   const [openActivities, setOpenActivities] = useState(false); // Un booleano para controlar si se muestra el diálogo de actividades
-  const [openTests, setOpenTests] = useState(false); // Un booleano para controlar si se muestra el diálogo de tests
   const [openUserInfo, setOpenUserInfo] = useState(false); // Un booleano para controlar si se muestra el diálogo de
-  const [testType, setTestType] = useState("D1");
-  const [email, setEmail] = useState("");
-  useEffect(() => {
-    // Call the handleTests function with the current email and testType values
-    console.log("Running useEffect with testType:", testType);
-    handleTests(email, testType);
-  }, [testType]);
   // Definimos las columnas del datagrid
+  const [color] = useState(colors.primary);
   const columns = [
-    { field: "name", headerName: "Nombre", width: 150},
+    { field: "name", headerName: "Nombre", width: 150 },
     { field: "lname", headerName: "Apellido", width: 150 },
     {
       field: "activities",
@@ -48,26 +39,11 @@ function UserScreen() {
         // Creamos un botón para ver las actividades de cada usuario
         <Button
           variant="contained"
-          color="primary"
+          color={color}
+          text-color="white"
           onClick={() => handleActivities(params.row.email)}
         >
-          Activities
-        </Button>
-      ),
-    },
-    {
-      field: "tests",
-      headerName: "Tests",
-      width: 150,
-      renderCell: (params) => (
-        // Creamos un botón para ver los tests de cada usuario
-        <Button
-          variant="contained"
-          color="secondary"
-          // Pass the testType state as an argument to the handleTests function
-          onClick={() => handleTests(params.row.email, testType)}
-        >
-          Tests
+          Actividades
         </Button>
       ),
     },
@@ -76,17 +52,33 @@ function UserScreen() {
       headerName: "Usuarios",
       width: 150,
       renderCell: (params) => (
-        // Creamos un botón para ver los tests de cada usuario
         <Button
           variant="contained"
-          color="secondary"
+          color={color}
+          text-color="white"
           onClick={() => handleUserInfo(params.row.email)}
         >
           Ver usuario
         </Button>
       ),
-    }
+    },
+    {
+      field: "resultados",
+      headerName: "Resultados",
+      width: 150,
+      renderCell: (params) => (
+        <Button
+          variant="contained"
+          color={color}
+          text-color="white"
+          onClick={() => handleUserResultados(params.row.email)}
+        >
+          Resultados
+        </Button>
+      ),
+    },
   ];
+
 
   // Definimos una función para obtener los usuarios al montar el componente
   useEffect(() => {
@@ -123,43 +115,6 @@ function UserScreen() {
         alert("Error al obtener las actividades");
       });
   };
-
-  // Definimos una función para obtener los tests de un usuario dado su email
-  const handleTests = (email, testType) => {
-    console.log("Running handleTests with email and testType:", email, testType);
-    axios
-      .get(
-        "http://20.127.122.6:8000/getpreguntas/",
-        // Aquí pasamos los parámetros como una propiedad params del objeto de opciones
-        {
-          params: {
-            // Use the testType parameter as the test_type query
-            test_type: testType,
-            usuario: email,
-          },
-          headers: { "Content-Type": "application/json" },
-        }
-      )
-      .then((response) => {
-        // Si la solicitud al servicio web falla, limpiamos el estado de userTests
-        if (!response.data) {
-          setUserTests([]);
-          return;
-        }
-  
-        // Guardamos el array de preguntas en el estado
-        // Aquí usamos response.data directamente, ya que es el array que nos devuelve la API
-        setUserTests(response.data);
-        console.log(response.data);
-        // Abrimos el diálogo de tests
-        setOpenTests(true);
-      })
-      .catch((error) => {
-        // Mostramos un mensaje de error si hay algún problema
-        console.error(error);
-        alert("Error al obtener los tests");
-      });
-  };
   
   
 
@@ -183,6 +138,9 @@ function UserScreen() {
         alert("Error al obtener la información");
       });
   };
+  const handleUserResultados = (email) => {
+    window.open(`http://74.208.39.10:3000/radar/${email}`, '_blank');
+  };
 
   
 
@@ -190,10 +148,8 @@ function UserScreen() {
   const handleClose = () => {
     // Cerramos los diálogos y limpiamos el estado
     setOpenActivities(false);
-    setOpenTests(false);
     setOpenUserInfo(false);
     setUserActivities([]);
-    setUserTests([]);
     setUserDetails(null);
   };
 
@@ -210,7 +166,14 @@ function UserScreen() {
         components={{
           Toolbar: GridToolbar,
         }}
-        getRowId={(row) => row.email} // Usamos el email como id
+        getRowId={(row) => row.email}
+        columnStyle={{
+          color: '#FFFFFF',
+        }}
+        rowStyle={{
+          color: 'green',
+        }}
+        // Usamos el email como id
       />
       {/* Mostramos el diálogo de actividades si está abierto */}
       <Dialog open={openActivities} onClose={handleClose}>
@@ -229,44 +192,7 @@ function UserScreen() {
           </List>
         </DialogContent>
       </Dialog>
-      {/* Mostramos el diálogo de tests si está abierto */}
-      {openTests ? (
-        <>
-          {/* Render the dialog component */}
-          <Dialog open={openTests} onClose={handleClose}>
-            <DialogTitle>Tests</DialogTitle>
-            <DialogContent>
-              {/* Render the select element inside the dialog component */}
-              {/* Use the testType state as the value prop */}
-              {/* Use the setTestType function as the onChange handler */}
-              <select value={testType} onChange={(e) => setTestType(e.target.value)}>
-                <option value="D1">D1</option>
-                <option value="D2">D2</option>
-                <option value="F1">F1</option>
-                <option value="F2">F2</option>
-              </select>
-              {/* Mostramos una lista de las preguntas */}
-              <ul>
-                {userTests && userTests.length > 0 ? (
-                  // If userTests is not null and has some elements, render them as list items
-                  userTests.map((pregunta) => (
-                    <li key={pregunta.id}>
-                      Id pregunta: {pregunta.idpregunta}
-                      <br />
-                      Respuesta: {pregunta.resp}
-                      <br />
-                      Tipo de test: {pregunta.test_type}
-                    </li>
-                  ))
-                ) : (
-                  // If userTests is null or empty, render a message saying "Test no disponible"
-                  <li>Test no disponible</li>
-                )}
-              </ul>
-            </DialogContent>
-          </Dialog>
-        </>
-      ) : null}
+      
 
       {/* Mostramos el diálogo de información si está abierto */}
       <Dialog open={openUserInfo} onClose={handleClose}>

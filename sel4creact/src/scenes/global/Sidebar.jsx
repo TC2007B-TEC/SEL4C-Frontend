@@ -8,6 +8,7 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import TaskOutlinedIcon from "@mui/icons-material/TaskOutlined";
 
 const Item = ({title, to, icon,selected, setSelected}) => {
     const theme = useTheme();
@@ -88,7 +89,14 @@ const Sidebar = () => {
                         to="/usuarios"
                         icon={<PeopleOutlinedIcon />}
                         selected={selected}
-                        setSelected={setSelected}                    
+                        setSelected={setSelected}           
+                    />
+                    <Item 
+                        title="TestsUsuarios"
+                        to="/usuariostests"
+                        icon={<TaskOutlinedIcon />}
+                        selected={selected}
+                        setSelected={setSelected}           
                     />
                     <Item 
                         title="Administradores"

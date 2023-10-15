@@ -2,6 +2,7 @@ import { ColorModeContext, useMode } from "./theme";
 import { CssBaseline,ThemeProvider } from "@mui/material";
 import Topbar from "./scenes/global/Topbar";
 import UserScreen from "./scenes/usuarios";
+import UserResultadoScreen from "./scenes/testsusuario";
 import Login from "./scenes/login";
 import Admins from "./scenes/admin";
 import AddAdmin from "./scenes/newadmin";
@@ -30,6 +31,7 @@ function App() {
               <Route path="/" element={<Login />}></Route>
               <Route path="/Dashboard" element={<Dashboard />}></Route>
               <Route path="/usuarios" element={<UserScreen />}></Route>
+              <Route path="/usuariostests" element={<UserResultadoScreen />}></Route>
               <Route path="/admins" element={<Admins />}></Route>
               <Route path="/newadmin" element={<AddAdmin />}></Route>
               <Route path="/pie" element={<Pie/>} />
