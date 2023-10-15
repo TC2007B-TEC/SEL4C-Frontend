@@ -2,7 +2,7 @@ import React from 'react';
 
 const ChartsHeader = ({ category, title }) => {
 return (
-  <div className=" mb-4">
+  <div className=" mb-2">
     <div>
       <p className="text-2xl font-extrabold tracking-tigh">{category}</p>
     </div>

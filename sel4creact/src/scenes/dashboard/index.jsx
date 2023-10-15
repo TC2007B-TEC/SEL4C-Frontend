@@ -12,16 +12,11 @@ const Dashboard = () => {
 
   return (
     <div className=''>
-      <div>
-        
-      </div>
       <div className={
-          `h  w-full lg:w-full p-4 mb-1 justify-center text-center ${theme.palette.mode==='dark' ? ' bg-main-dark-bg': ' bg-main-bg'}`
-          }>
-            <p className='text-5xl p-3'>Dashboard</p>
-            <p className='text-3xl'>SEL4C | Tecnológico de Monterrey</p>
-            
-        </div>
+          `h  w-full lg:w-full p-4 mb-1 justify-center text-center ${theme.palette.mode==='dark' ? ' bg-main-dark-bg': ' bg-main-bg'}`}>
+          <p className='text-5xl p-3'>Dashboard</p>
+          <p className='text-3xl'>SEL4C | Tecnológico de Monterrey</p>    
+      </div>
       <div className='flex flex-wrap lg:flex-nowrap justify-center'>
         <div className={
           `h-44  w-full lg:w-1/5 p-8 pt-6 m-3 ${theme.palette.mode==='dark' ? ' bg-main-dark-bg': ' bg-main-bg'}`
