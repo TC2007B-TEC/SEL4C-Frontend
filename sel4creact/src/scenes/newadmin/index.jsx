@@ -11,7 +11,13 @@ function AddAdmin() {
   // Define the validation schema for the input fields
   const validationSchema = yup.object({
     email: yup.string().email().required(),
-    password: yup.string().min(8).required(),
+    password: yup
+      .string()
+      .required("Please Enter your password")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+        "Must Contain 8 Characters, One Uppercase, One Lowercase and One Number"
+      ),
     name: yup.string().required(),
     lname: yup.string().required(),
     role: yup.string().oneOf(["admin", "superadmin"]).required(),
