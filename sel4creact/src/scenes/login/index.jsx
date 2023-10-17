@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import axios from '../../api/axios';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -12,14 +12,18 @@ import Grid from '@mui/material/Grid';
 import { useNavigate } from "react-router-dom";
 
 const LOGIN_URL = 'http://20.127.122.6:8000/adminlog/'; // change this to match your Django login URL
+//const LOGIN_URL = 'http://127.0.0.1:8000/adminlog/';
+
 
 const Login = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const theme = useTheme();
   const navigate = useNavigate();
   const colors = tokens(theme.palette.mode);
   const [email, setEmail] = useState(''); // change this to email instead of email
   const [password, setPassword] = useState(''); // change this to password instead of pwd
   const [errMsg, setErrMsg] = useState('');
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,11 +34,13 @@ const Login = () => {
         {
           headers: { 'Content-Type': 'application/json' },
           withCredentials: false, // change this to false or allow credentials in Django
-        }
+        } 
       );
     console.log(JSON.stringify(response?.data));
     if (response.status === 200) {
-      // login successful
+      setIsLoggedIn(true)
+      console.log(isLoggedIn);
+      localStorage.setItem('isLoggedIn', isLoggedIn)
       const { email, name, lname, role } = response.data; // change this to match your Django login response data format
       localStorage.setItem('email', email); // store the email information in local storage
       localStorage.setItem('name', name);
@@ -44,7 +50,7 @@ const Login = () => {
       navigate("/Dashboard");
       
     }
-    setEmail(''); // clear the input fields
+    setEmail('');
     setPassword('');
     } catch (err) {
       if (!err?.response) {
@@ -92,7 +98,7 @@ const Login = () => {
             <form onSubmit={handleSubmit}>
               <TextField
                 id="email"
-                label="email" // change this to email instead of emailname
+                label="email"
                 type="text"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}

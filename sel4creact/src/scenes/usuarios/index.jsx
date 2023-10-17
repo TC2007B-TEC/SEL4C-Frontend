@@ -16,8 +16,11 @@ import Typography from '@mui/material/Typography'
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import { useTheme } from '@mui/material';
 import { tokens } from '../../theme';
+import { useNavigate } from "react-router-dom";
 // Creamos un componente para la pantalla de usuario
 function UserScreen() {
+  const navigate = useNavigate();
+  const isLoggedIn = localStorage.getItem('isLoggedIn');
   // Definimos el estado del componente
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -82,6 +85,9 @@ function UserScreen() {
 
   // Definimos una función para obtener los usuarios al montar el componente
   useEffect(() => {
+    if (!isLoggedIn) {
+      return navigate("/");
+    }
     axios
       .get("http://20.127.122.6:8000/usuario/")
       .then((response) => {

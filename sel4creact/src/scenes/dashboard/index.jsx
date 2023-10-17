@@ -9,6 +9,11 @@ import { useNavigate } from 'react-router-dom';
 const Dashboard = () => {
   const theme = useTheme();
   const navigate = useNavigate();
+  const isLoggedIn = localStorage.getItem('isLoggedIn');
+  if (!isLoggedIn) {
+    return navigate("/");
+  }
+  
 
   return (
     <div className=''>
