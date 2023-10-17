@@ -2,9 +2,8 @@ import React from 'react';
 import{ useState, useEffect } from 'react';
 import {Datos} from '../data/dataFun';
 
-const Info = (usuario, valor) => {  
+const Info = (usuario) => {  
     const [data, setData] = useState([]);
-    const v = valor.data
     
     useEffect(() => {
         Datos(usuario).then(data => {
@@ -46,7 +45,7 @@ const Info = (usuario, valor) => {
                     <td>{porcentajes[2]}%</td>
                 </tr>
                 <tr style={{border: '1px solid white'}}>
-                    <td>Innovación sicual y sostenibilidad financiera (ISSF)</td>
+                    <td>Innovación social y sostenibilidad financiera (ISSF)</td>
                     <td>{porcentajes[3]}%</td>
                 </tr>
                 <tr style={{border: '1px solid white'}}>
@@ -87,7 +86,7 @@ const Info = (usuario, valor) => {
                     <td>{porcentajesf[2]}%</td>
                 </tr>
                 <tr style={{border: '1px solid white'}}>
-                    <td>Innovación sicual y sostenibilidad financiera (ISSF)</td>
+                    <td>Innovación social y sostenibilidad financiera (ISSF)</td>
                     <td>{porcentajesf[3]}%</td>
                 </tr>
                 <tr style={{border: '1px solid white'}}>
