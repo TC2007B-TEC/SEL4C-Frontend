@@ -4,9 +4,6 @@ import { Box, Button, TextField, FormControl, InputLabel, Select, MenuItem } fro
 import { Formik } from "formik"; // Import Formik for form validation
 import * as yup from "yup"; // Import yup for schema validation
 import { useNavigate } from "react-router-dom";
-import bcrypt from "bcryptjs";
-
-
 
 function AddAdmin() {
   const navigate = useNavigate();
@@ -25,26 +22,21 @@ function AddAdmin() {
     lname: yup.string().required(),
     role: yup.string().oneOf(["admin", "superadmin"]).required(),
   });
-  const salt = "$2a$10$Qq0n7j9g8VZyO1Qm8LZ2xO";
+
   // Define the handler function for the submit button
   const handleSubmit = (values) => {
     // Create an object with the input data
-    console.log("si llega a handle")
     const adminData = {
       email: values.email,
-      password: bcrypt.hashSync(values.password, salt),
+      password: values.password,
       name: values.name,
       lname: values.lname,
       role: values.role,
     };
-    console.log("si llega despues de admin data")
     if (!isLoggedIn) {
       return navigate("/");
     }
-    
-    
     // Make the POST request to the backend with the admin data
-    console.log("si llega a post")
     axios.post('http://20.127.122.6:8000/profe/', adminData)
       .then((response) => {
         // Handle the response from the backend
@@ -136,4 +128,4 @@ function AddAdmin() {
   );
 }
 
-export default AddAdmin;
+export default AddAdmin;
