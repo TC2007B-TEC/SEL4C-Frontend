@@ -39,8 +39,6 @@ function UserResultadoScreen() {
     bcolor = '#e0e0e0'
   }
 
-  const [openTests, setOpenTests] = useState(false);
- 
   // Definimos las columnas del datagrid
   const columns = [
     { field: "name", headerName: "Nombre", width: 150},

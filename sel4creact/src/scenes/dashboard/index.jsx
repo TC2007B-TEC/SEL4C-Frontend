@@ -34,12 +34,6 @@ const Dashboard = () => {
 
   const [acts, setActs] = useState([]);
 
-  const isLoggedIn = localStorage.getItem('isLoggedIn');
-  if (!isLoggedIn) {
-    return navigate("/");
-  }
-  
-
   useEffect(() => {
       getActividades().then(actividades => {
           setActs(actividades);
@@ -47,6 +41,11 @@ const Dashboard = () => {
           console.error(error);
       });
   });
+
+  const isLoggedIn = localStorage.getItem('isLoggedIn');
+  if (!isLoggedIn) {
+    return navigate("/");
+  }
 
   const Actividades = [
     { x: 'Actividad 1', y: acts[0], text: 'actividades completadas' },
