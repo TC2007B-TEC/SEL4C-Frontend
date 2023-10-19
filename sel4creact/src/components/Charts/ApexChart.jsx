@@ -28,14 +28,15 @@ const Apex = (usuario) => {
             <Radar 
                 name='Diagnostico Inicial' 
                 dataKey="x"              
-                stroke="green" 
-                fill="green" fillOpacity={0.5}
+                stroke="white" 
+                fill="white"
+                fillOpacity={0.5}
             />
             <Radar 
                 name='Diagnóstico Final' 
                 dataKey="y"  
-                stroke="blue" 
-                fill="blue" 
+                stroke="green" 
+                fill="green" 
                 fillOpacity={0.5} 
             />
             <Legend/> 

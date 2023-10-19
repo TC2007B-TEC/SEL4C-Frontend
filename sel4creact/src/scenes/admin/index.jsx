@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid'; // import the DataGrid component
 import axios from 'axios'; // import axios for making HTTP requests
+import { useTheme } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+
 
 // define the columns for the data grid
 const columns = [
@@ -13,6 +15,7 @@ const columns = [
 
 // define the component that renders the data grid
 const Admins = () => {
+  const theme = useTheme()
   const [rows, setRows] = useState([]); // use state to store the rows of data
   const navigate = useNavigate();
   const isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -39,7 +42,7 @@ const Admins = () => {
   }, []); // run only once when the component mounts
 
   return (
-    <div style={{ height: 300, width: '100%' }}>
+    <div className='m-6' style={{ height: 300}}>
       <DataGrid
         getRowId={(row) => row.email} // use the email field as the id
         rows={rows}

@@ -1,4 +1,116 @@
 import axios from "axios";
+import { a } from "react-spring";
+
+export async function Usuarios(){
+    let us = []
+
+    try {
+        const response = await axios.get(`http://20.127.122.6:8000/usuario`);
+        const temp = Object.values(response.data)
+        us = us.concat(temp.map(usuario => {
+            return {
+                email: usuario.email,
+                school: usuario.school,
+                password:usuario.password,
+                name: usuario.name,
+                lname: usuario.lname,
+                gender: usuario.gender,
+                age: usuario.age,
+                country: usuario.country,
+                discipline: usuario.discipline
+            };
+        }));
+    }
+    catch (error) {
+        console.error(error);
+    }
+    return us
+}
+
+export async function getActividades(){
+    let act = []
+
+    try {
+        const response = await axios.get(`http://20.127.122.6:8000/getact/`);
+        const temp = Object.values(response.data)
+        act = act.concat(temp.map(actividad => {
+            return {
+                id: actividad.id,
+                author: actividad.author,
+                name: actividad.name,
+                file: actividad.file,
+            };
+        }));
+    }
+    catch (error) {
+        console.error(error);
+    }
+
+    let act1 = 0
+    let act2 = 0
+    let act3 = 0
+    let act4 = 0
+    let act5 = 0
+
+
+    for(let i = 0; i < act.length; i++){
+        if(act[i].name === "A1_3"){
+            act1 += 1
+        }
+        else if(act[i].name === "A2_3"){
+            act2 += 1
+        }
+        else if(act[i].name === "A3_2"){
+            act3 += 1
+        }
+        else if(act[i].name === "A4"){
+            act4 += 1
+        }
+        else if(act[i].name === "A5"){
+            act5 += 1
+        }
+    }
+
+    return [act1, act2, act3, act4, act5];
+
+}
+
+export async function Admins(){
+    let adminsG = []
+
+    try {
+        const response = await axios.get(`http://20.127.122.6:8000/profe`);
+        const temp = Object.values(response.data)
+        adminsG = adminsG.concat(temp.map(admin => {
+            return {
+                email: admin.email,
+                password:admin.password,
+                name: admin.name,
+                lname: admin.lname,
+                role: admin.role
+            };
+        }));
+    }
+    catch (error) {
+        console.error(error);
+    }
+
+    let admins = 0
+    let profes = 0
+
+    for(let i = 0; i < adminsG.length; i++){
+        
+        if (adminsG[i].role === "superadmin") {
+            admins += 1
+        }
+        else{
+            profes += 1
+        }
+    }
+
+    return [admins, profes]
+}
+
 export async function Datos (email) {
 
     let us = email.usuario

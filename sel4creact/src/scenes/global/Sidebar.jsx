@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {ProSidebar, Menu, MenuItem} from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
-import {Box, IconButton, Typography, useTheme} from '@mui/material';
+import {Box, Button, IconButton, Typography, useTheme} from '@mui/material';
 import { Link } from "react-router-dom";
 import {tokens} from "../../theme";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
@@ -15,7 +15,7 @@ const Item = ({title, to, icon,selected, setSelected}) => {
     const colors = tokens (theme.palette.mode);
     return (
         <MenuItem active ={selected === title} style={{color: colors.tec[100]}} onClick={()=> setSelected(title)} icon={icon}>
-            <Typography>{title}</Typography>
+            <p className=' text-xs'>{title}</p>
             <Link to={to} />
         </MenuItem>
     )
@@ -30,7 +30,7 @@ const Sidebar = () => {
 
     return <Box
         sx={{
-            height:"115%",       
+            height:"122%",       
             "& .pro-sidebar-inner":{
                 background: `${colors.tec[400]} !important`
             },
@@ -55,7 +55,7 @@ const Sidebar = () => {
                     icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
                     style={{
                         margin: "10px 0 20px 0",
-                        color: colors.tec[500],
+                        color: 'white',
                     }}                
                 >
                     {!isCollapsed && (
@@ -66,12 +66,10 @@ const Sidebar = () => {
                             ml="15px"
                             height="full"
                         >
-                            <Typography variant="h3" color={colors.grey[100]}>
-                                SEL4C
-                            </Typography>
-                            <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+                            <h1 className='text-white text-4xl'>SEL4C</h1>
+                            <Button style={{color:'white'}} onClick={() => setIsCollapsed(!isCollapsed)}>
                                 <MenuOutlinedIcon />
-                            </IconButton>
+                            </Button>
                         </Box>
                     )}
                 </MenuItem>
@@ -115,7 +113,6 @@ const Sidebar = () => {
                 </Box>
             </Menu>
         </ProSidebar>
-
     </Box>
 }
 

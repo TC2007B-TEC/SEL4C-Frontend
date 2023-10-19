@@ -53,7 +53,7 @@ function AddAdmin() {
 
   return (
     <div className="AddAdmin">
-      <h1>Add a new admin</h1>
+      <h1 className="m-8">Add a new admin</h1>
       <Formik
         initialValues={{
           email: "",
@@ -66,7 +66,7 @@ function AddAdmin() {
         onSubmit={handleSubmit}
       >
         {({ handleSubmit, handleChange, values, touched, errors }) => (
-          <form onSubmit={handleSubmit}>
+          <form className="justify-center m-8" onSubmit={handleSubmit}>
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
               <TextField
                 label="Email"
@@ -103,20 +103,20 @@ function AddAdmin() {
               />
               {/* Use the basic select of Mui material for the role field */}
               <FormControl fullWidth>
-               <InputLabel id="role-label">Role</InputLabel>
-               <Select
-                 labelId="role-label"
-                 id="role-select"
-                 name="role"
-                 value={values.role}
-                 onChange={handleChange}
-                 label="Role"
-                 error={touched.role && Boolean(errors.role)}
-               >
-                 <MenuItem value="admin">Admin</MenuItem>
-                 <MenuItem value="superadmin">Superadmin</MenuItem>
-               </Select>
-             </FormControl>
+                <InputLabel id="role-label">Role</InputLabel>
+                <Select
+                  labelId="role-label"
+                  id="role-select"
+                  name="role"
+                  value={values.role}
+                  onChange={handleChange}
+                  label="Role"
+                  error={touched.role && Boolean(errors.role)}
+                >
+                  <MenuItem value="admin">Admin</MenuItem>
+                  <MenuItem value="superadmin">Superadmin</MenuItem>
+                </Select>
+              </FormControl>
               <Button type="submit" variant="contained">
                 Add
               </Button>
