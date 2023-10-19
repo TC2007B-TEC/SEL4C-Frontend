@@ -10,9 +10,10 @@ import { tokens } from '../../theme';
 import backlogin from './video/backlogin.mp4';
 import Grid from '@mui/material/Grid';
 import { useNavigate } from "react-router-dom";
+import bcrypt from "bcryptjs";
 
-//const LOGIN_URL = 'http://20.127.122.6:8000/adminlog/'; // change this to match your Django login URL
-const LOGIN_URL = 'http://20.127.122.6:8000//adminlog/';
+const LOGIN_URL = 'http://20.127.122.6:8000/adminlog/';
+//const LOGIN_URL = 'http://127.0.0.1:8000/adminlog/';
 
 
 const Login = () => {
@@ -24,13 +25,14 @@ const Login = () => {
   const [password, setPassword] = useState(''); // change this to password instead of pwd
   const [errMsg, setErrMsg] = useState('');
 
+  const salt = "$2a$10$Qq0n7j9g8VZyO1Qm8LZ2xO";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
         LOGIN_URL, // use the constant defined above
-        { email: email, password: password }, // change this to match your Django login data format
+        { email: email, password: bcrypt.hashSync(password, salt) }, // change this to match your Django login data format
         {
           headers: { 'Content-Type': 'application/json' },
           withCredentials: false, // change this to false or allow credentials in Django
@@ -38,6 +40,7 @@ const Login = () => {
       );
     console.log(JSON.stringify(response?.data));
     if (response.status === 200) {
+      var startTime = performance.now()
       setIsLoggedIn(true)
       console.log(isLoggedIn);
       localStorage.setItem('isLoggedIn', isLoggedIn)
@@ -48,7 +51,7 @@ const Login = () => {
       localStorage.setItem('role', role);
       // redirect to dashboard
       navigate("/Dashboard");
-      
+      var endTime = performance.now()     
     }
     setEmail('');
     setPassword('');
@@ -142,6 +145,5 @@ const Login = () => {
   );
 };
 
-export default Login;
-
+export default Login;
 
