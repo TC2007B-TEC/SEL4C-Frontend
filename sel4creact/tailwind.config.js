@@ -14,7 +14,8 @@ module.exports = {
           'main-bg': '#c2c2c2',
           'main-dark-bg': '#292929',
           'secondary-dark-bg': '#33373E',
-          'light-gray': '#a3a3a3',
+          'light-gray': '#6c6c6c',
+          'azul-tec': '#12329a',
           'half-transparent': 'rgba(0, 0, 0, 0.5)',
         },
         borderWidth: {
@@ -39,7 +40,7 @@ module.exports = {
           590: '590px',
         },
         backgroundImage: {
-          'hero-pattern':
+          'general':
             "url('https://i.ibb.co/MkvLDfb/Rectangle-4389.png')",
         },
       },

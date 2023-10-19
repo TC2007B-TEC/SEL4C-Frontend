@@ -1,7 +1,7 @@
 // Importamos las librerías necesarias
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { DataGrid, GridToolbar } from "@material-ui/data-grid";
+import { DataGrid, GridToolbar, GridToolbarColumnsButton, GridToolbarExport, GridToolbarDensitySelector, GridToolbarFilterButton, GridToolbarContainer } from "@material-ui/data-grid";
 import {
   Button,
   Dialog,
@@ -14,36 +14,59 @@ import {
 } from "@material-ui/core";
 import Typography from '@mui/material/Typography'
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-import { useTheme } from '@mui/material';
+import { ThemeProvider, useTheme } from '@mui/material';
 import { tokens } from '../../theme';
 // Creamos un componente para la pantalla de usuario
 function UserScreen() {
   // Definimos el estado del componente
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   const [users, setUsers] = useState([]); // Un array para guardar los usuarios
   const [userActivities, setUserActivities] = useState([]); // Un array para guardar las actividades de un usuario
   const [userDetails, setUserDetails] = useState(null); // Un objeto para guardar la información de un usuario
   const [openActivities, setOpenActivities] = useState(false); // Un booleano para controlar si se muestra el diálogo de actividades
   const [openUserInfo, setOpenUserInfo] = useState(false); // Un booleano para controlar si se muestra el diálogo de
+  
+  let color = ''
+  let bcolor =''
+  if (theme.palette.mode==='dark'){
+    color = 'white'
+  }
+  else{
+    color = 'black'
+  }
+
+  if (theme.palette.mode==='dark'){
+    bcolor = '#6c6c6c'
+  }
+  else{
+    bcolor = '#e0e0e0'
+  }
   // Definimos las columnas del datagrid
-  const [color] = useState(colors.primary);
+
   const columns = [
-    { field: "name", headerName: "Nombre", width: 150 },
-    { field: "lname", headerName: "Apellido", width: 150 },
+    { 
+      field: "name", 
+      headerName: "Nombre", 
+      width: 150, 
+    },
+
+    { 
+      field: "lname", 
+      headerName: "Apellido", 
+      width: 150, 
+    },
+
     {
       field: "activities",
-      headerName: "Activities",
+      headerName: "Actividad",
       width: 150,
       renderCell: (params) => (
         // Creamos un botón para ver las actividades de cada usuario
-        <Button
+        <Button style={{color:color, background: bcolor}} 
           variant="contained"
-          color={color}
-          text-color="white"
           onClick={() => handleActivities(params.row.email)}
         >
-          Actividades
+          <p>Actividades</p>
         </Button>
       ),
     },
@@ -52,7 +75,7 @@ function UserScreen() {
       headerName: "Usuarios",
       width: 150,
       renderCell: (params) => (
-        <Button
+        <Button style={{color:color, background: bcolor}}
           variant="contained"
           color={color}
           text-color="white"
@@ -67,7 +90,7 @@ function UserScreen() {
       headerName: "Resultados",
       width: 150,
       renderCell: (params) => (
-        <Button
+        <Button style={{color:color, background: bcolor}}
           variant="contained"
           color={color}
           text-color="white"
@@ -159,21 +182,21 @@ function UserScreen() {
   }
   // Retornamos el JSX del componente
   return (
-    <div style={{ height: 500, width: '100%' }}>
-      <DataGrid
+    <div className='m-6' style={{ height: 500, color:color}}>
+      <DataGrid style={{color:color}}
         rows={users}
         columns={columns}
         components={{
           Toolbar: GridToolbar,
         }}
+        Gri
         getRowId={(row) => row.email}
-        columnStyle={{
-          color: '#FFFFFF',
-        }}
-        rowStyle={{
-          color: 'green',
-        }}
         // Usamos el email como id
+        sx={{
+          '& .MuiDataGrid-columnHeader, & .MuiDataGrid-cell': {
+            color: color,
+          },
+        }}
       />
       {/* Mostramos el diálogo de actividades si está abierto */}
       <Dialog open={openActivities} onClose={handleClose}>

@@ -18,6 +18,22 @@ function UserResultadoScreen() {
   const [users, setUsers] = useState([]); 
   const [userTests, setUserTests] = useState([]);
   const [openTests, setOpenTests] = useState(false); 
+
+  let color = ''
+  if (theme.palette.mode==='dark'){
+    color = 'white'
+  }
+  else{
+    color = 'black'
+  }
+
+  let bcolor = ''
+  if (theme.palette.mode==='dark'){
+    bcolor = '#6c6c6c'
+  }
+  else{
+    bcolor = '#e0e0e0'
+  }
   // Definimos las columnas del datagrid
   const columns = [
     { field: "name", headerName: "Nombre", width: 150},
@@ -25,10 +41,12 @@ function UserResultadoScreen() {
     {
       field: "testd1",
       headerName: "Emprendedor Social Diagnostico",
+      headerAlign: 'center',
+      align: 'center',
       width: 200,
       renderCell: (params) => (
         // Creamos un botón para ver los tests de cada usuario
-        <Button
+        <Button style={{color:color, background: bcolor}}
           variant="contained"
           color="secondary"
           // Pass the testType state as an argument to the handleTests function
@@ -41,10 +59,12 @@ function UserResultadoScreen() {
     {
         field: "testd2",
         headerName: "E-Complexity Diagnostico",
+        headerAlign: 'center',
+        align: 'center',
         width: 200,
         renderCell: (params) => (
           // Creamos un botón para ver los tests de cada usuario
-          <Button
+          <Button style={{color:color, background: bcolor}}
             variant="contained"
             color="secondary"
             // Pass the testType state as an argument to the handleTests function
@@ -57,10 +77,12 @@ function UserResultadoScreen() {
       {
         field: "testf1",
         headerName: "Emprendedor Social Final",
+        headerAlign: 'center',
+        align: 'center',
         width: 200,
         renderCell: (params) => (
           // Creamos un botón para ver los tests de cada usuario
-          <Button
+          <Button style={{color:color, background: bcolor}}
             variant="contained"
             color="secondary"
             // Pass the testType state as an argument to the handleTests function
@@ -73,10 +95,12 @@ function UserResultadoScreen() {
       {
           field: "testf2",
           headerName: "E-Complexity Final",
+          headerAlign: 'center',
+          align: 'center',
           width: 200,
           renderCell: (params) => (
             // Creamos un botón para ver los tests de cada usuario
-            <Button
+            <Button style={{color:color, background: bcolor}}
               variant="contained"
               color="secondary"
               // Pass the testType state as an argument to the handleTests function
@@ -793,8 +817,8 @@ function UserResultadoScreen() {
  
   // Retornamos el JSX del componente
   return (
-    <div style={{ height: 500, width: '100%' }}>
-      <DataGrid
+    <div className="m-6 content-center justify-center align-middle" style={{ height: 500}}>
+      <DataGrid style={{color:color}}
         rows={users}
         columns={columns}
         components={{
