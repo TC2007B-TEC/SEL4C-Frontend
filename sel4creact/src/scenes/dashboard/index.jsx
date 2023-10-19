@@ -12,7 +12,6 @@ import{ useState, useEffect } from 'react';
 const Dashboard = () => {
   const theme = useTheme();
   const navigate = useNavigate();
-  
   const [usuarios, setUs] = useState([]);
 
     useEffect(() => {
@@ -34,6 +33,12 @@ const Dashboard = () => {
   });
 
   const [acts, setActs] = useState([]);
+
+  const isLoggedIn = localStorage.getItem('isLoggedIn');
+  if (!isLoggedIn) {
+    return navigate("/");
+  }
+  
 
   useEffect(() => {
       getActividades().then(actividades => {

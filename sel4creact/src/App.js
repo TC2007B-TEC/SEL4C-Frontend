@@ -7,11 +7,10 @@ import Login from "./scenes/login";
 import Admins from "./scenes/admin";
 import AddAdmin from "./scenes/newadmin";
 import Sidebar from "./scenes/global/Sidebar";
-import {Routes, Route, useLocation} from "react-router-dom";
-import ProtectedRoute from './components/ProtectedRoute';
+import {Routes, Route, useLocation, Outlet} from "react-router-dom";
 import Dashboard from './scenes/dashboard';
 import Pie from './scenes/Charts/Pie';
-import Apex from './scenes/Charts/Radar'
+import Apex from './scenes/Charts/Radar';
 
 
 function App() {
